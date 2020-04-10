@@ -11,3 +11,8 @@
 ### 2) TypeScript와 폴더 구조 셋팅
 
 1. npm i typescript
+
+### 3) tsc 사용해보기
+
+1. npm i -g typescript
+2. tsc 파일명.ts
