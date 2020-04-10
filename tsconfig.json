@@ -16,10 +16,10 @@
     "noImplicitThis": true,
     "noImplicitReturns": true,
     "strict": true, //기본 false이기 때문에 true로 변경해주는게 좋다.
-    "lib": ["DOM", "ES2015", "ES2017", "ES2020"],
+    "lib": ["DOM", "ES2015", "ES2017", "ES2018", "ES2019", "ES2020"],
     "target": "ES6",
     "module": "commonJS"
   },
-  "include": [], //어떤파일을 컴파일 할지
-  "exclude": ["*.js"], //컴파일을 제외할 파일의 목록
+  // "include": ["baseball/numberBasebll.ts"], //어떤파일을 컴파일 할지
+  // "exclude": ["*.js"], //컴파일을 제외할 파일의 목록
 }

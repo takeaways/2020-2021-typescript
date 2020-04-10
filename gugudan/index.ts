@@ -10,7 +10,7 @@ const form = document.createElement('form');
 const input = document.createElement('input');
 form.addEventListener('submit', (e) => {
   e.preventDefault();
-  const value = parseInt(document.querySelector('input').value);
+  const value = parseInt(document.querySelector('input')!.value);
   if (value === result) {
     alert('정답입니다.');
     numberOne = Math.ceil(Math.random() * 9);

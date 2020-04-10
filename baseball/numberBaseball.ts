@@ -1,22 +1,66 @@
-let num: number[] = [3];
-let str: string;
-//any 아무거나 넣어 버릴 수 있는 상태가 되버린다.
+(() => {
+  const chooseNumber = () => {
+    const candidate = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    const arr: number[] = [];
+    for (let i = 0; i < 4; i++) {
+      arr.push(candidate.splice(Math.floor(Math.random() * (9 - i)), 1)[0]);
+    }
+    return arr;
+  };
 
-let arr: (string | number | boolean)[] = [1, '1', true];
-let arr1 = [1, '1', true] as const; //튜플
-let s = 'hell' as const;
-// s = 1;
+  let arr = chooseNumber();
 
-str = 'Hello world';
-console.log(str);
+  const { body } = document;
+  const result = document.createElement('h1');
+  body.append(result);
 
-const obj: { name: string; age: number } = {
-  name: 'gi',
-  age: 29,
-}; // as const 해주면 내부 값을 못 바꾼다.
-obj.name = 'gi2';
-obj.age = 30;
+  const form = document.createElement('form');
+  const input = document.createElement('input');
+  const button = document.createElement('button');
+  input.type = 'text';
+  input.maxLength = 4;
+  button.textContent = '입력';
 
-const obj1: { name: string; age?: number } = {
-  name: 'gi',
-};
+  form.append(input);
+  form.append(button);
+  body.append(form);
+
+  let wrongCount = 0;
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const targetValue: number[] = input.value.split('').map((t) => parseInt(t));
+    if (targetValue.length !== 4) {
+      return alert('값은 4개를 입력하셔야 합니다.');
+    }
+
+    const result: number[] = targetValue.map((t, index) => {
+      if (t === arr[index]) {
+        return 1;
+      }
+      if (arr.includes(t)) {
+        return 0;
+      }
+      return -1;
+    });
+
+    const time = document.createElement('p');
+    const s = result.filter((b) => b === 1);
+    const b = result.filter((b) => b === 0);
+    const o = result.filter((b) => b === -1);
+    time.textContent = `${s.length}s ${b.length}b`;
+    body.appendChild(time);
+    wrongCount++;
+    if (wrongCount === 10) {
+      alert('실패!!!');
+      wrongCount = 0;
+      location.reload();
+    } else {
+      if (s.length === 4) {
+        alert('축하 합니다. 홈런');
+        setTimeout(() => {
+          location.reload();
+        }, 3000);
+      }
+    }
+  });
+})();
