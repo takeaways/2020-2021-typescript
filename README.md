@@ -9,3 +9,5 @@
 5. javascript의 슈퍼셋이다.
 
 ### 2) TypeScript와 폴더 구조 셋팅
+
+1. npm i typescript
