@@ -158,3 +158,95 @@
 4. this와 타입 범위 이해
 
 - this:HTMLButtonElement
+
+# 04 Class, Generic
+
+1. 인터페이스의 확장형이라고 생각 할 수 있다?? 음...
+2. strictNullChecks 옵션 null과 undefined를 다른 것으로 본다
+3. ?는 언디파인드가 가능하다는 의미를 내포한다.
+
+### 1 제네릭
+
+1. function add<T>(a:T, b:T):T{}
+2. 명의 뒤 쪽에 타입으로써 사용할 수 있다.
+3. 제네릭 타입 추론
+4. 제네릭에 제약을 주기
+
+   ```c
+   const keys = string | number
+   interface obj<T extends keyof(keys)>{
+     (a:T, b:T) => T
+   }
+   const b :obj<number> = (a, b) => a + b //정상 동작한다
+   const b :obj<object> = (a, b) => a + b //에러가 발생하게 된다.
+
+   function forEach1<T>(arr:T[],callback:(item:T) => void):void{
+    for(let i = 0 ; i < arr.length ; i++){
+        callback(arr[i])
+    }
+   }
+   forEach1<number>([1,2,4], (item)=>{
+     console.log(item)
+   });
+   ```
+
+5. 타입가드
+   - 타입을 정의 해주는 함수만들기
+   - is를 사용해서 타입을 넘겨준다.
+   - as 를 안쓰려고 만들어 준다.
+   - 조건문을 통과 한 다음에는 타입이 변경 된다.
+   ```c
+   function isSub(data: Card // class): data is Sub {
+     if(data.cost){
+       return  true;
+     }
+     return false;
+   }
+   ```
+
+# 5 모듈 시스템
+
+1. module.exports 를 붙이는 순간 모듈이 된다. (nodejs - commonjs)
+   - require('./경로')
+   - 다른 파일에서 사용할 수 있도록 만들 수 있다. (가독성과, 재사용성을 높힌다.)
+   - exports.a = "b" 다음과 같이도 사용할 수 있다. 객체를 사용할때 const {} = require('./경로');
+2. ES2015이후 에는??
+
+   - export const a = "b"
+   - import {a} from "./경로";
+   - export default function(){}
+   - import \* as hi from "./경로"; -> module.export = function(){}
+   - import hi from "./경로" -> export defaul();
+
+3. d.ts 파일에 따른 import 방법
+   - function a(){}
+   - export = a
+   - import a= require("./경로")
+4. 패키지의 좋은 예
+   - 1. npm install 할 때 d.ts 파일이 있는 경우 엠비언트 모듈 [redux][axios]
+   - 2. index.d.ts 없는 경우..... --> npm install @types/react 와 같이 남이 타입을 만들어 둔 것을 사용한다.
+   - 3. 헐.. 타입이 없는 경우는??.. 내가 쓸 부분만 내가 타입을 만들어 줘야 한다.
+     - types/can-use-dom.d.ts 만들어서 직접 만든다.
+     - declare module "can-use-dom"{ export default canUserDom}
+     - tsconfig.json "typeRoots":["경로"]
+       ```c
+       declare module "can-use-dom"{
+         내가 사용하는 것만 적어 준다.
+         const canUseDom : boolean
+         export default canUserDom
+       }
+       ```
+   - 4. window.hell 와 같이 정의 할 경우에는?
+     ```c
+     export {}
+     declare global{
+       interface Window{
+         hello:string
+       }
+     }
+     ```
+   - 5. 타입을 틀리게 해놓은 경우.. 최악이군...
+     ```c
+     npm rm @types/connect-flash
+     지우고 내가 다시 정의해서 만들기 내부에서 사용하는 모듈 타입을 잘 설치 해줘야 한다.
+     ```

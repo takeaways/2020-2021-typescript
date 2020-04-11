@@ -16,7 +16,8 @@
     "noImplicitThis": true,
     "noImplicitReturns": true,
     "strict": true, //기본 false이기 때문에 true로 변경해주는게 좋다.
-    "lib": ["DOM", "ES2015", "ES2017", "ES2018", "ES2019", "ES2020"],
+    "strictNullChecks": true, // null 과 undefined를 구별한다.
+    "lib": ["es2020","dom"],
     "target": "ES6",
     "module": "commonJS"
   }
