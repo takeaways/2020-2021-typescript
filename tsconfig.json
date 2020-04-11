@@ -19,7 +19,7 @@
     "lib": ["DOM", "ES2015", "ES2017", "ES2018", "ES2019", "ES2020"],
     "target": "ES6",
     "module": "commonJS"
-  },
+  }
   // "include": ["baseball/numberBasebll.ts"], //어떤파일을 컴파일 할지
   // "exclude": ["*.js"], //컴파일을 제외할 파일의 목록
 }

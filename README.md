@@ -1,6 +1,7 @@
 # typescript-webgame
 
 # 001
+
 ### 1) TypeScript 소개
 
 1. 언어이면서 라이브러리이다.
@@ -25,98 +26,135 @@
 1. 타입을 정의하는 파일을 definition
 2. "^3.7.4" 의 ^의미는 3.7.4 <= x < 4.0.0 설치 package.json
 
-
 # 002
 
 ### 1) tsconfig.json
 
 1. 컴파일 옵션을 설정해주는 파일
-    ```json
-    {
-      "compilerOptions": {
-        "noImplicitAny": true,
-        "noImplicitThis": true,
-        "noImplicitReturns": true,
-        "strict": true, //기본 false이기 때문에 true로 변경해주는게 좋다.
-        "lib": ["DOM", "ES2015", "ES2017", "ES2020"],
-        "target": "ES6",
-        "module": "commonJS"
-      },
-      "include": [], //어떤파일을 컴파일 할지
-      "exclude": ["*.js"], //컴파일을 제외할 파일의 목록
-    }
-    ```
+   ```json
+   {
+   	"compilerOptions": {
+   		"noImplicitAny": true,
+   		"noImplicitThis": true,
+   		"noImplicitReturns": true,
+   		"strict": true, //기본 false이기 때문에 true로 변경해주는게 좋다.
+   		"lib": ["DOM", "ES2015", "ES2017", "ES2020"],
+   		"target": "ES6",
+   		"module": "commonJS"
+   	},
+   	"include": [], //어떤파일을 컴파일 할지
+   	"exclude": ["*.js"] //컴파일을 제외할 파일의 목록
+   }
+   ```
 
 ### 2) b?: number 있을지 없을지 모를 때 사용한다.
+
 1. 타입
-    ```c
-    let num: number[] = [3];
-    let str: string;
-    //any 아무거나 넣어 버릴 수 있는 상태가 되버린다.
 
-    let arr: (string | number | boolean)[] = [1, '1', true];
-    let arr1 = [1, '1', true] as const; //튜플
-    let s = 'hell' as const;
-    // s = 1;
+   ```c
+   let num: number[] = [3];
+   let str: string;
+   //any 아무거나 넣어 버릴 수 있는 상태가 되버린다.
 
-    str = 'Hello world';
-    console.log(str);
+   let arr: (string | number | boolean)[] = [1, '1', true];
+   let arr1 = [1, '1', true] as const; //튜플
+   let s = 'hell' as const;
+   // s = 1;
 
-    const obj: { name: string; age: number } = {
-      name: 'gi',
-      age: 29,
-    }; // as const 해주면 내부 값을 못 바꾼다.
-    obj.name = 'gi2';
-    obj.age = 30;
+   str = 'Hello world';
+   console.log(str);
 
-    const obj1: { name: string; age?: number } = {
-      name: 'gi',
-    };
-    ```
+   const obj: { name: string; age: number } = {
+     name: 'gi',
+     age: 29,
+   }; // as const 해주면 내부 값을 못 바꾼다.
+   obj.name = 'gi2';
+   obj.age = 30;
+
+   const obj1: { name: string; age?: number } = {
+     name: 'gi',
+   };
+   ```
+
 2. enum Color {Red, Blue, Green} = 0, 1, 2를 의미하게 된다.
 3. ? : (삼항연산자) / ?. 옵셔널 체이닝 (obj?.name) -> name이 있던가 없던가
 4. null, undefined, void
-    ```c
-    function add(a:number, b:number):number{
-      return a + b
-    }
 
-    function minus(a:number, b:number):void{
-      const result = a -b; 
-    }
+   ```c
+   function add(a:number, b:number):number{
+     return a + b
+   }
 
-    function hoc(a:number,b:number):(c:string)=>number{
-      return (c:string): number =>{
-        return 3
-      }
-    }
-    ```
-5. never const a : []  = []
+   function minus(a:number, b:number):void{
+     const result = a -b;
+   }
+
+   function hoc(a:number,b:number):(c:string)=>number{
+     return (c:string): number =>{
+       return 3
+     }
+   }
+   ```
+
+5. never const a : [] = []
 6. hello as unknown as string 만약 hello가 number 라면
-    ```c
-    let num: number[] = [3];
-    let str: string;
-    //any 아무거나 넣어 버릴 수 있는 상태가 되버린다.
 
-    let arr: (string | number | boolean)[] = [1, '1', true];
-    let arr1 = [1, '1', true] as const; //튜플
-    let s = 'hell' as const;
-    // s = 1;
+   ```c
+   let num: number[] = [3];
+   let str: string;
+   //any 아무거나 넣어 버릴 수 있는 상태가 되버린다.
 
-    str = 'Hello world';
-    console.log(str);
+   let arr: (string | number | boolean)[] = [1, '1', true];
+   let arr1 = [1, '1', true] as const; //튜플
+   let s = 'hell' as const;
+   // s = 1;
 
-    const obj: { name: string; age: number } = {
-      name: 'gi',
-      age: 29,
-    }; // as const 해주면 내부 값을 못 바꾼다.
-    obj.name = 'gi2';
-    obj.age = 30;
+   str = 'Hello world';
+   console.log(str);
 
-    const obj1: { name: string; age?: number } = {
-      name: 'gi',
-    };
+   const obj: { name: string; age: number } = {
+     name: 'gi',
+     age: 29,
+   }; // as const 해주면 내부 값을 못 바꾼다.
+   obj.name = 'gi2';
+   obj.age = 30;
 
-    const ar: [] = 1;
+   const obj1: { name: string; age?: number } = {
+     name: 'gi',
+   };
 
-    ```
+   const ar: [] = 1;
+
+   ```
+
+# 03 인터페이스{} 객체에 많이 사용 vs type = {} 조금 더 넓은 범위
+
+1. 같은 이름의 인터 페이스를 따로 만들 수 있다.
+2. extends 를 통한 타입 상속이 가능하다.
+
+   ```c
+   type HELLO = string | number;
+   type ob = {
+       ROCK: string;
+       PAPER: string;
+   } | string;
+
+   const obj: ob = {
+       ROCK: "HELL",
+       PAPER: "sd"
+   };
+   const obj1: ob = "HELLO WORLD";
+    interface RSP {
+        readonly ROCK: '0',
+        readonly SCISSORS: '-142px',
+        readonly PAPER: '-284px',
+    }
+   ```
+
+3. d.ts 문제 해결하기
+
+- undefined or null 이라는 타입이 정의 되어 리턴 값이 되어 있을 떄는 개발자가 값을 보장 한다는 의미로 !(느낌표)를 뒤에 붙여 준다.
+
+4. this와 타입 범위 이해
+
+- this:HTMLButtonElement
