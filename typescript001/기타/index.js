@@ -1,5 +1,5 @@
 "use strict";
-const c = {
+var c = {
     hello: true,
     bye: false,
     hi: false,
