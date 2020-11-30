@@ -1,5 +1,11 @@
 import { waitForInput } from "../Input";
-import { AppState, Priority } from "../type";
+import {
+	Action,
+	ActionNewTodo,
+	AppState,
+	Priority,
+	PRIORITY_NAME_MAP,
+} from "../type";
 import { getIsValidEnumValue } from "../util";
 export abstract class Command {
 	constructor(public key: string, private desc: string) {}
@@ -8,7 +14,7 @@ export abstract class Command {
 		return `${this.key}: ${this.desc}`;
 	}
 
-	async run(state: AppState): Promise<void> {}
+	async run(state: AppState): Promise<void | Action> {}
 }
 
 export class PrintTodos extends Command {
@@ -28,12 +34,20 @@ export class NewTodo extends Command {
 		super("n", "할 일 추가하기");
 	}
 
-	async run() {
+	async run(): Promise<void | ActionNewTodo> {
 		const title = await waitForInput("title: ");
-		const priorityStr = await waitForInput("priority: ");
+		const priorityStr = await waitForInput(
+			`priority: ${PRIORITY_NAME_MAP[Priority.High]}(${Priority.High}) ~ ${
+				PRIORITY_NAME_MAP[Priority.Low]
+			}(${Priority.Low})`
+		);
 		const priority = Number(priorityStr);
 		if (title && NewTodo.getIsPriority(priority)) {
-			//todo
+			return {
+				type: "newTodo",
+				title,
+				priority,
+			};
 		}
 	}
 
