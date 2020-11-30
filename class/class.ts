@@ -20,3 +20,4 @@ class Programmer extends Person {
 }
 const p1 = new Programmer("he");
 p1.say();
+console.log(p1);
