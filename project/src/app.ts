@@ -1,5 +1,3 @@
-// @ts-check
-
 // utils
 function $(selector) {
   return document.querySelector(selector);
@@ -38,17 +36,7 @@ function createSpinnerElement(id) {
 let isDeathLoading = false;
 let isRecoveredLoading = false;
 
-/**
- * @typedef {object} CovidSummary
- * @property {Array<object>} Country
- * 
- */
-// api
-/**
- * @returns {Promise<CovidSummary>}
- * 
- * 
- */
+
 function fetchCovidSummary() {
   const url = 'https://api.covid19api.com/summary';
   return axios.get(url);

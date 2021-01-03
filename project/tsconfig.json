@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "allowJs": true, //자바스크립트도 사용하겠다.
+        "target":"ES5", //어디 까지 적용하겠나 
+        "outDir":"./built", //어디다 생성하겠나
+        "moduleResolution":"Node", // promise인식을 시켜주기위해서
+    },
+    "include": ["./src/**/*"] //어떤걸 포함 시키겠는가?
+}
